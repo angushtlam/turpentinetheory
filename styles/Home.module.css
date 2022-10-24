@@ -1,0 +1,191 @@
+.sceneContainer {
+  --perspective: 800px;
+
+  --camera-truck: 0px;
+  --camera-pedestal: 0px;
+  --camera-dolly: -1000px;
+  --camera-roll: 0deg;
+  --camera-pan: 0deg;
+  --camera-tilt: 0deg;
+
+  height: 500px;
+  width: 100%;
+  overflow: hidden;
+  perspective: var(--perspective);
+}
+
+.sceneContainer > *:not(:empty) {
+  transform-style: preserve-3d;
+}
+
+.scene {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  transition: transform 1s;
+  transform:
+    translateZ(var(--perspective))
+    
+    rotateX(var(--camera-roll))
+    rotateY(var(--camera-pan))
+    rotateZ(var(--camera-tilt))
+    
+    translateX(calc(var(--camera-truck) * -1))
+    translateY(var(--camera-pedestal))
+    translateZ(var(--camera-dolly))
+    ;
+}
+
+.floor {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 200vw; height: 200vh;
+  transform: translate(-50%, -50%) rotateX(90deg) translateZ(-90px);
+  background-color: #123;
+  background-image:
+    radial-gradient(#000a, #0000, #000 60%),
+    repeating-linear-gradient(#fff5 0 2px, #fff0 0 30px),
+    repeating-linear-gradient(90deg, #fff5 0 2px, #fff0 0 30px)
+    ;
+}
+
+@keyframes cubeRotate {
+  to { transform: rotateX(-360deg) rotateY(720deg); }
+}
+
+.cube {
+  position: relative;
+  width: 200px; height: 200px;
+  animation: cubeRotate 30s infinite linear;
+  transform-style: preserve-3d;
+}
+
+.cube > div {
+  position: absolute;
+  inset: 0;
+  background-color: #fff;
+  box-shadow: 0 0 10px #123 inset,0 0 50px #000 inset;
+  opacity: 0.8;
+}
+
+.cube > div:nth-child(1) { transform: translateZ(100px); }
+.cube > div:nth-child(2) { transform: rotateY(90deg) translateZ(100px); }
+.cube > div:nth-child(3) { transform: rotateY(180deg) translateZ(100px); }
+.cube > div:nth-child(4) { transform: rotateY(270deg) translateZ(100px); }
+.cube > div:nth-child(5) { transform: rotateX(90deg) translateZ(100px); }
+.cube > div:nth-child(6) { transform: rotateX(270deg) translateZ(100px); }
+
+.main {
+  min-height: 100vh;
+  padding: 4rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer {
+  display: flex;
+  flex: 1;
+  padding: 2rem 0;
+  border-top: 1px solid #eaeaea;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.title a {
+  color: #0070f3;
+  text-decoration: none;
+}
+
+.title a:hover,
+.title a:focus,
+.title a:active {
+  text-decoration: underline;
+}
+
+.title {
+  margin: 0;
+  line-height: 1.15;
+  font-size: 4rem;
+}
+
+.title,
+.description {
+  text-align: center;
+}
+
+.description {
+  margin: 4rem 0;
+  line-height: 1.5;
+  font-size: 1.5rem;
+}
+
+.code {
+  background: #fafafa;
+  border-radius: 5px;
+  padding: 0.75rem;
+  font-size: 1.1rem;
+  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
+    Bitstream Vera Sans Mono, Courier New, monospace;
+}
+
+.grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 800px;
+}
+
+.card {
+  margin: 1rem;
+  padding: 1.5rem;
+  text-align: left;
+  color: inherit;
+  text-decoration: none;
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+  max-width: 300px;
+}
+
+.card:hover,
+.card:focus,
+.card:active {
+  color: #0070f3;
+  border-color: #0070f3;
+}
+
+.card h2 {
+  margin: 0 0 1rem 0;
+  font-size: 1.5rem;
+}
+
+.card p {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.5;
+}
+
+.logo {
+  height: 1em;
+  margin-left: 0.2rem;
+}
+
+@media (max-width: 600px) {
+  .grid {
+    width: 100%;
+    flex-direction: column;
+  }
+}
